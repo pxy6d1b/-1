@@ -1,58 +1,16 @@
 package wuziqi;
-import javax.swing.JFrame;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.event.MouseAdapter;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
-import com.hilarly.fivechess.FiveChessFrame;
-
-/*public class wuziqi2 extends JFrame {
-	
-	public static void main(String[] args) {
-		wuziqi2 f = new wuziqi2();
-
-	}
-	public wuziqi2(){
-		JFrame newframe = new JFrame("窗口");
-		newframe.setSize(640,680);
-		newframe.setVisible(true);
-		newframe.setLayout(null);
-		
-		/*start = new JButton("开始");
-		start.setBounds(250, 160, 120, 50);
-		newframe.add(start);
-		
-		exit = new JButton("退出");
-		exit.setBounds(250, 220, 120, 50);
-		newframe.add(exit);
-		
-	
-	}
-	/*public void paintComponent(Graphics g) {
-		g.fillRect(20, 180, 450, 450);// 绘制棋盘背景颜色的大小
-		for (int i = 0; i < 19; i++) {
-			g.setColor(Color.black);// 棋盘线的颜色
-			g.drawLine(20, 180 + 25 * i, 470, 180 + 25 * i);// 画棋盘的横线
-			g.drawLine(20 + 25 * i, 180, 20 + 25 * i, 630);// 画棋盘的竖线
-		}
-		/*for (int i = 0; i < 15; i++) {
-			for (int j = 0; j < 15; j++) {
-				g.drawLine(10 * i, 10 * j, 10, 10);
-				
-			}
-		}*/
-	
-class FiveChessFrame extends JFrame implements MouseListener {
+class wuziqi2 extends JFrame implements MouseListener {
 
 	final static int LINE_COUNT = 19;// 定义静态变量,保存横纵向可放的最大棋子数
 	int width = Toolkit.getDefaultToolkit().getScreenSize().width;// 取得屏幕的宽度
@@ -71,7 +29,7 @@ class FiveChessFrame extends JFrame implements MouseListener {
 	Button defeat;// 定义按钮
 	Button quit;// 定义按钮
 
-	public FiveChessFrame() {
+	public wuziqi2() {
 		this.setTitle("Hilary的五子棋");// 设置窗体标题
 		this.setSize(650, 650); // 设置窗体大
 		this.setResizable(false);// 窗体大小不可改变
@@ -83,91 +41,79 @@ class FiveChessFrame extends JFrame implements MouseListener {
 		this.addMouseListener(this);// 为窗体加入监听器
 		setLayout(null);// 设置布局为空
 
+
 		// 初始化开始按钮
-		start = new Button("开始");// 按钮的名称
-		start.setBounds(500, 200, 120, 50);// 按钮的位置及大小
-		start.setFont(new Font("Default", Font.BOLD, 30));// 设置按钮字体的大小
-		start.addMouseListener(this);// 为按钮加入监听器
-		add(start);// 加入按钮
+				start = new Button("开始");// 按钮的名称
+				start.setBounds(20, 500, 100, 50);// 按钮的位置及大小
+				start.setFont(new Font("Default", Font.BOLD, 30));// 设置按钮字体的大小
+				start.addMouseListener(this);// 为按钮加入监听器
+				add(start);// 加入按钮
 
-		// 初始化说明按钮
-		explain = new Button("说明");
-		explain.setBounds(500, 280, 120, 50);// 设置按钮的位置及大小
-		explain.setFont(new Font("Default", Font.BOLD, 30));// 设置按钮字体的大小
-		explain.addMouseListener(this);// 为按钮加入监听器
-		add(explain);
+				regret = new Button("悔棋");
+				regret.setBounds(180, 500, 100, 50);
+				regret.setFont(new Font("Default", Font.BOLD, 30));// 设置按钮字体的大小
+				regret.addMouseListener(this);// 为按钮加入监听器
+				add(regret);
 
-		regret = new Button("悔棋");
-		regret.setBounds(500, 360, 120, 50);
-		regret.setFont(new Font("Default", Font.BOLD, 30));// 设置按钮字体的大小
-		regret.addMouseListener(this);// 为按钮加入监听器
-		add(regret);
+				defeat = new Button("认输");
+				defeat.setBounds(350, 500, 100, 50);
+				defeat.setFont(new Font("Default", Font.BOLD, 30));// 设置按钮字体的大小
+				defeat.addMouseListener(this);
+				add(defeat);
 
-		defeat = new Button("认输");
-		defeat.setBounds(500, 440, 120, 50);
-		defeat.setFont(new Font("Default", Font.BOLD, 30));// 设置按钮字体的大小
-		defeat.addMouseListener(this);
-		add(defeat);
-
-		quit = new Button("退出");
-		quit.setBounds(500, 520, 120, 50);
-		quit.setFont(new Font("Default", Font.BOLD, 30));// 设置按钮字体的大小
-		quit.addMouseListener(this);
-		add(quit);
+				quit = new Button("退出");
+				quit.setBounds(500, 500, 100, 50);
+				quit.setFont(new Font("Default", Font.BOLD, 30));// 设置按钮字体的大小
+				quit.addMouseListener(this);
+				add(quit);
 
 		this.setVisible(true);// 窗体显示
 	}
 
 	public void paint(Graphics g) {
-		g.setColor(Color.magenta);// 设置颜色
-		g.setFont(new Font("华文琥珀", Font.BOLD, 45));// 设置字体
-		g.drawString("五", 90, 100);// 输入字体
-		g.drawString("子", 292, 101);// 输入字体
-		g.drawString("棋", 490, 100);// 输入字体
-
-		// 游戏信息显示
+	
 		float color[] = Color.RGBtoHSB(202, 241, 244, new float[] { 123, 128,
 				210 });// 生成一个自定义的背景颜色
 		g.setColor(Color.getHSBColor(color[0], color[1], color[2]));// 设置背景颜色
-		g.fillRect(0, 145, 490, 640);// 画一个颜色跟背景颜色一样的矩形,覆盖之前的文字
+		g.fillRect(0,0, 888, 840);// 画一个颜色跟背景颜色一样的矩形,覆盖之前的文字
 		g.setColor(Color.black);
 		g.setFont(new Font("黑体", Font.BOLD, 28));// 字体黑体加粗30号
-		g.drawString("游戏信息:" + message, 60, 170);// 输入字体
+		g.drawString(message, 270, 620);// 输入字体
 
 		// 绘制棋盘
-		// ((Graphics2D) g).setStroke(new BasicStroke(1));
-		g.setColor(Color.cyan);// 绘制棋盘背景颜色
-		g.fillRect(20, 180, 450, 450);// 绘制棋盘背景颜色的大小
+		//((Graphics2D) g).setStroke(new BasicStroke(1));
+		g.setColor(Color.green);// 绘制棋盘背景颜色
+		g.fillRect(120, 50, 450, 450);// 绘制棋盘背景颜色的大小
 		for (int i = 0; i < 19; i++) {
 			g.setColor(Color.black);// 棋盘线的颜色
-			g.drawLine(20, 180 + 25 * i, 470, 180 + 25 * i);// 画棋盘的横线
-			g.drawLine(20 + 25 * i, 180, 20 + 25 * i, 630);// 画棋盘的竖线
+			g.drawLine(120, 50 + 25 * i, 570, 50 + 25 * i);// 画棋盘的横线
+			g.drawLine(120 + 25 * i, 50, 120 + 25 * i, 500);// 画棋盘的竖线
 		}
-		// 标注点位
-		g.fillOval(92, 252, 6, 6);
-		g.fillOval(92, 402, 6, 6);
-		g.fillOval(92, 552, 6, 6);
-		g.fillOval(242, 252, 6, 6);
-		g.fillOval(242, 402, 6, 6);
-		g.fillOval(242, 552, 6, 6);
-		g.fillOval(392, 252, 6, 6);
-		g.fillOval(392, 402, 6, 6);
-		g.fillOval(392, 552, 6, 6);
+		//标注点位
+		g.fillOval(218, 147, 6, 6);
+		g.fillOval(218, 272, 6, 6);
+		g.fillOval(218, 397, 6, 6);
+		g.fillOval(342, 147, 6, 6);
+		g.fillOval(342, 272, 6, 6);
+		g.fillOval(342, 397, 6, 6);
+		g.fillOval(466, 147, 6, 6);
+		g.fillOval(466, 272, 6, 6);
+		g.fillOval(466, 397, 6, 6);
 
 		// 绘制棋子
 		for (int i = 0; i < 19; i++) {
 			for (int j = 0; j < 19; j++) {
 				if (allchess[i][j] == 1) {
 					// 绘制黑色棋子
-					int temx = i * 25 + 20;
-					int temy = j * 25 + 180;
+					int temx = i * 25 + 120;
+					int temy = j * 25 + 50;
 					g.setColor(Color.black);
 					g.fillOval(temx - 8, temy - 8, 16, 16);
 				}
 				if (allchess[i][j] == 2) {
 					// 绘制白色棋子
-					int temx = i * 25 + 20;
-					int temy = j * 25 + 180;
+					int temx = i * 25 + 120;
+					int temy = j * 25 + 50;
 					g.setColor(Color.white);
 					g.fillOval(temx - 8, temy - 8, 16, 16);
 					g.setColor(Color.black);
@@ -268,9 +214,9 @@ class FiveChessFrame extends JFrame implements MouseListener {
 		x = e.getX();
 		y = e.getY();
 		if (canplay) {
-			if (x >= 8 && x <= 482 && y >= 168 && y <= 642) {
-				last_x = x = Math.round((x - 20) / 25f);//点击棋盘附近的点,在最近的坐标画棋子
-				last_y = y = Math.round((y - 180) / 25f);
+			if (x >=8 && x <= 882 && y >= 50 && y <= 882) {
+				last_x = x = Math.round((x - 120) / 25f);//点击棋盘附近的点,在最近的坐标画棋子
+				last_y = y = Math.round((y - 50) / 25f);
 				if (allchess[x][y] == 0) {
 					// 判断当前要下的是什么颜色的棋子
 					if (nowblack == true) {
@@ -381,9 +327,4 @@ class FiveChessFrame extends JFrame implements MouseListener {
 		}
 		return flag;
 	}
-
-	public class Fivechess {
-		public static void main(String[] args) {
-			new FiveChessFrame();
-		}
-	}
+}
